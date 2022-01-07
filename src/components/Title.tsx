@@ -35,7 +35,7 @@ const ThirdTitle = styled.span`
 export function Title(){
   return (
     <TitleWrap>
-      <PrimaryTitle>The Geatest App</PrimaryTitle>
+      <PrimaryTitle>The Greatest App</PrimaryTitle>
       <SecondTitle>for</SecondTitle>
       <ThirdTitle>LOTTERY</ThirdTitle>
     </TitleWrap>
