@@ -1,9 +1,9 @@
-import { Footer } from './components/Footer'
+import { LayoutLogin } from './components/LayoutLogin'
 
 function App() {
   return (
     <>
-      <Footer />
+      <LayoutLogin />
     </>
   );
 }
