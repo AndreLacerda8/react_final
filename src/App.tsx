@@ -1,10 +1,11 @@
-import { LayoutLogin } from './components/Home/LayoutLogin'
+import { Route, Routes,  } from 'react-router-dom'
+import { Home } from './pages/Home'
 
 function App() {
   return (
-    <>
-      <LayoutLogin />
-    </>
+    <Routes>
+      <Route path='/*' element={<Home />} />
+    </Routes>
   );
 }
 
