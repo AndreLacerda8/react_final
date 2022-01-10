@@ -8,6 +8,7 @@
 }
 
 body {
+  background-color: var(--bg-color);
   margin: 0;
   font-family: 'Helvetica Neue',
     sans-serif;

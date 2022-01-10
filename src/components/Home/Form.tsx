@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { ArrowLeft } from '../../assets/ArrowLeft'
 import { ArrowRight } from '../../assets/ArrowRight'
 import { Button } from './Button'
 
@@ -30,16 +31,17 @@ const FormStyled = styled.form`
   width: 100%;
 `
 
-export function Form(props: { children: any, btnText: string, title: string }) {
+export function Form(props: { children: any, btnText: string, title: string, back?: boolean }) {
   return (
     <FormWrap>
       <Title>{props.title}</Title>
       <FormStyled>
         {props.children}
       </FormStyled>
-      <Button second>
+      <Button second back={props.back}>
+        {props.back && <ArrowLeft height="1.25rem" width="1.5rem" color="#707070" />}
         {props.btnText}
-        <ArrowRight height="1.25rem" width="1.5rem" color="#707070" />
+        {!props.back && <ArrowRight height="1.25rem" width="1.5rem" color="#707070" />}
       </Button>
     </FormWrap>
   )

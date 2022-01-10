@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ArrowRight } from '../../assets/ArrowRight'
 import { Button } from './Button'
 import { Form } from './Form'
 import { Input } from './Input'
 
-const ForgotPass = styled.a`
+const ForgotPass = styled.span`
   color: var(--color-gray-light);
   font-size: 1rem;
   font-style: italic;
@@ -23,7 +24,14 @@ export function FormLogin(){
     <Form btnText='Sign Up' title='Authentication'>
       <Input placeholder='Email' />
       <Input placeholder='Password' />
-      <ForgotPass>I forget my password</ForgotPass>
+      <ForgotPass>
+        <Link to='/resetpassword' style={{
+          textDecoration: 'none',
+          color: 'inherit'
+        }}>
+          I forget my password
+        </Link>
+      </ForgotPass>
       <Button>
         Log In
         <ArrowRight height="1.25rem" width="1.5rem" color="#B5C401" />

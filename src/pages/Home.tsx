@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import { FormLogin } from '../components/Home/FormLogin'
 import { Layout } from '../components/Layout'
 import { Title } from '../components/Home/Title'
+import { FormResetPass } from '../components/Home/FormResetPass'
 
 const HomeStyle = styled.main`
   display: flex;
@@ -18,6 +19,7 @@ export function Home(){
         <Title />
         <Routes>
           <Route path='/login' element={<FormLogin />} />
+          <Route path='/resetpassword' element={<FormResetPass />} />
         </Routes>
       </HomeStyle>
     </Layout>
