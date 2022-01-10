@@ -21,7 +21,7 @@ const ForgotPass = styled.span`
 
 export function FormLogin(){
   return (
-    <Form btnText='Sign Up' title='Authentication'>
+    <Form to='/registration' btnText='Sign Up' title='Authentication'>
       <Input placeholder='Email' />
       <Input placeholder='Password' />
       <ForgotPass>

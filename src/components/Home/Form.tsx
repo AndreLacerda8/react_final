@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ArrowLeft } from '../../assets/ArrowLeft'
 import { ArrowRight } from '../../assets/ArrowRight'
@@ -31,7 +32,7 @@ const FormStyled = styled.form`
   width: 100%;
 `
 
-export function Form(props: { children: any, btnText: string, title: string, back?: boolean }) {
+export function Form(props: { children: any, btnText: string, title: string, back?: boolean, to: string }) {
   return (
     <FormWrap>
       <Title>{props.title}</Title>
@@ -39,9 +40,14 @@ export function Form(props: { children: any, btnText: string, title: string, bac
         {props.children}
       </FormStyled>
       <Button second back={props.back}>
-        {props.back && <ArrowLeft height="1.25rem" width="1.5rem" color="#707070" />}
-        {props.btnText}
-        {!props.back && <ArrowRight height="1.25rem" width="1.5rem" color="#707070" />}
+        <Link to={props.to} style={{
+          textDecoration: 'none',
+          color: 'inherit'
+        }}>
+          {props.back && <ArrowLeft height="1.25rem" width="1.5rem" color="#707070" />}
+          {props.btnText}
+          {!props.back && <ArrowRight height="1.25rem" width="1.5rem" color="#707070" />}
+        </Link>
       </Button>
     </FormWrap>
   )
