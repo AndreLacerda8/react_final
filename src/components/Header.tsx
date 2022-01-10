@@ -8,7 +8,6 @@ const HeaderStyle = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 12.5rem 0 8.125rem;
-  margin-bottom: 4.4rem;
   border-bottom: 2px solid var(--color-gray-border);
 `
 

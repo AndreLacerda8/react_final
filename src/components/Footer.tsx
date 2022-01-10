@@ -7,6 +7,7 @@ const FooterStyle = styled.footer`
   color: var(--color-gray-strong);
   border-top: 2px var(--color-gray-border) solid;
   padding: 1.85rem 0 2rem;
+  margin-top: 2rem;
   text-align: center;
 `
 

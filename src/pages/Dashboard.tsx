@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Main } from '../components/Dashboard/Main'
 import { Header } from '../components/Header'
 import { Layout } from '../components/Layout'
 
@@ -11,6 +12,7 @@ export function Dashboard(){
     <Layout>
       <DashboardStyle>
         <Header />
+        <Main />
       </DashboardStyle>
     </Layout>
   )

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { ArrowRight } from '../assets/ArrowRight'
 
@@ -6,17 +7,23 @@ const Ul = styled.ul`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  color: var(--color-gray-strong);
-  font-size: 1.25rem;
-  font-weight: bold;
-  font-style: italic;
+
+  & li button{
+    color: var(--color-gray-strong);
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-style: italic;
+  }
 `
 
-const Li = styled.li`
+const Item = styled.button`
+  background-color: transparent;
+  border: none;
   display: flex;
   align-items: center;
   padding: .8rem;
   margin-left: 2rem;
+  cursor: pointer;
 
   & svg{
     margin-left: .5rem;
@@ -24,14 +31,24 @@ const Li = styled.li`
 `
 
 export function NavHeader(){
+  const navigate = useNavigate()
+
+  function logout(){
+    navigate('/')
+  }
+
   return (
     <nav>
       <Ul>
-        <Li>Account</Li>
-        <Li>
-          Log out
-          <ArrowRight color='#707070' />
-        </Li>
+        <li>
+          <Item>Account</Item>
+        </li>
+        <li>
+          <Item onClick={logout}>
+            Log out
+            <ArrowRight color='#707070' />
+          </Item>
+        </li>
       </Ul>
     </nav>
   )
