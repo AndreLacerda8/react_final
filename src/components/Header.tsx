@@ -12,10 +12,10 @@ const HeaderStyle = styled.header`
   border-bottom: 2px solid var(--color-gray-border);
 `
 
-export function Header(){
+export function Header(props: { haveLinkHome?: boolean }){
   return (
     <HeaderStyle>
-      <TitleHeader />
+      <TitleHeader haveLinkHome={props.haveLinkHome} />
       <NavHeader />
     </HeaderStyle>
   )

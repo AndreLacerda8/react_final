@@ -1,6 +1,12 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const ContainerTitle = styled.div`
   position: relative;
   margin-top: 1rem;
 `
@@ -21,11 +27,26 @@ const Underline = styled.div`
   left: -10px;
 `
 
-export function TitleHeader(){
+export function TitleHeader(props: { haveLinkHome?: boolean }){
   return (
     <Container>
-      <Title>TGL</Title>
-      <Underline />
+      <ContainerTitle>
+        <Title>TGL</Title>
+        <Underline />
+      </ContainerTitle>
+      {props.haveLinkHome && (
+        <Link to='/dashboard' style={{
+          textDecoration: 'none',
+          color: 'var(--color-gray-strong)',
+          fontSize: '1.25rem',
+          fontStyle: 'italic',
+          fontWeight: 'bold',
+          marginTop: '1.75rem',
+          marginLeft: '4.625rem'
+        }}>
+          Home
+        </Link>
+      )}
     </Container>
   )
 }
