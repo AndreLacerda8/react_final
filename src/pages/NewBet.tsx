@@ -1,19 +1,19 @@
 import styled from 'styled-components'
-import { Main } from '../components/Dashboard/Main'
 import { Header } from '../components/Header'
 import { Layout } from '../components/Layout'
+import { Main } from '../components/NewBet/Main'
 
-const DashboardStyle = styled.div`
+const NewBetStyle = styled.div`
   min-height: calc(100% - 7rem);
 `
 
-export function Dashboard(){
+export function NewBet(){
   return (
     <Layout>
-      <DashboardStyle>
+      <NewBetStyle>
         <Header />
         <Main />
-      </DashboardStyle>
+      </NewBetStyle>
     </Layout>
   )
 }

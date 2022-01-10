@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { ArrowRight } from '../../assets/ArrowRight'
 import { GameButton } from '../GameButton'
@@ -50,6 +51,12 @@ const ButtonNewBet = styled.button`
 `
 
 export function Main(){
+  const navigate = useNavigate()
+
+  function navigateNewBet(){
+    navigate('/newbet')
+  }
+
   return (
     <MainStyle>
       <HeaderMain>
@@ -60,7 +67,7 @@ export function Main(){
           <GameButton selected type='Mega-Sena' color='#01AC66' />
           <GameButton type='Lotomania' color='#F79C31' />
         </div>
-        <ButtonNewBet>
+        <ButtonNewBet onClick={navigateNewBet}>
           New Bet
           <ArrowRight color='#B5C401' />
         </ButtonNewBet>

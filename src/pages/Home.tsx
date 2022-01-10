@@ -10,7 +10,7 @@ const HomeStyle = styled.main`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  min-height: calc(100% - 5rem);
+  min-height: calc(100% - 7rem);
 `
 
 export function Home(){
