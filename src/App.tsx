@@ -1,4 +1,4 @@
-import { LayoutLogin } from './components/LayoutLogin'
+import { LayoutLogin } from './components/Home/LayoutLogin'
 
 function App() {
   return (

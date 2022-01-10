@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { FormLogin } from './FormLogin'
-import { Layout } from './Layout'
+import { Layout } from '../Layout'
 import { Title } from './Title'
 
 const LayoutLoginStyle = styled.main`
