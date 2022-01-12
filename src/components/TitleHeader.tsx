@@ -20,7 +20,7 @@ const Title = styled.h1`
 const Underline = styled.div`
   width: 6.68rem;
   height: 0.44rem;
-  background-color: var(--color-green);
+  background-color: var(--color-green-light);
   border-radius: 6px;
   position: absolute;
   bottom: -4px;

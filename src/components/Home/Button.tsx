@@ -14,7 +14,7 @@ export const Button = styled.button`
   margin: 1.32rem auto;
   padding: 1rem 0;
   border-radius: 1rem;
-  color: ${(props: IProps) => props.second ? 'var(--color-gray-strong)' : 'var(--color-green)'};
+  color: ${(props: IProps) => props.second ? 'var(--color-gray-strong)' : 'var(--color-green-light)'};
   background-color: transparent;
   border: none;
   cursor: pointer;

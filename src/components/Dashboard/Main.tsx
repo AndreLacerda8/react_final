@@ -39,7 +39,7 @@ const ButtonNewBet = styled.button`
   font-size: 1.5rem;
   font-weight: bold;
   font-style: italic;
-  color: var(--color-green);
+  color: var(--color-green-light);
   margin-right: 1rem;
   margin-left: auto;
   cursor: pointer;

@@ -16,7 +16,7 @@ const PrimaryTitle = styled.span`
 `
 
 const SecondTitle = styled.span`
-  background-color: var(--color-green);
+  background-color: var(--color-green-light);
   color: #fff;
   font-size: 1.375rem;
   display: block;
