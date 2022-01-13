@@ -21,16 +21,20 @@ const Number = styled.button`
   &:hover{
     filter: brightness(.9);
   }
+
+  &.selected{
+    background-color: var(--color-green-strong);
+  }
 `
 
-export function ChooseNumbers(props: { qtdNumbers: number }){
+export function ChooseNumbers(props: { qtdNumbers: number, maxNumbers: number, onToggleNumber: (event: any, number: string) => void }){
   const array = new Array(props.qtdNumbers).fill(0)
 
   return(
     <Container>
       {array.map((item, index) => {
         const num: string = index + 1 <= 9 ? '0' + (index + 1) : '' + (index + 1)
-        return <Number key={index}>{num}</Number>
+        return <Number data-js='numBtn' onClick={event => props.onToggleNumber(event, num)} key={index}>{num}</Number>
       })}
     </Container>
   )

@@ -46,12 +46,12 @@ const ButtonAddCart = styled(CommonButton)`
   }
 `
 
-export function Actions(){
+export function Actions(props: { onClear: () => void }){
   return(
     <Container>
       <LeftBox>
         <CommonButton>Complete game</CommonButton>
-        <CommonButton>Clear game</CommonButton>
+        <CommonButton onClick={props.onClear}>Clear game</CommonButton>
       </LeftBox>
       <ButtonAddCart>
         <CartIcon />

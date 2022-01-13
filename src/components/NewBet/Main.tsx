@@ -37,6 +37,7 @@ interface IGame{
 export function Main(){
   const [games, setGames] = useState<IGame[]>([])
   const [currentGame, setCurrentGame] = useState<IGame>()
+  const [numbersSelected, setNumbersSelected] = useState<string[]>([])
 
   useEffect(() => {
     async function getGames(){
@@ -57,6 +58,28 @@ export function Main(){
     if(gameSelected){
       setCurrentGame(gameSelected)
     }
+    clearNumbers()
+  }
+
+  function selectNumberHandler(event: any, number: string){
+    if(event.target.classList.contains('selected')){
+      event.target.classList.remove('selected')
+      setNumbersSelected(prev => prev.filter(num => num !== number))
+    } else {
+      if(numbersSelected.length >= (currentGame?.max_number || 0)){
+        return alert('Máximos de números atingido')
+      }
+      event.target.classList.add('selected')
+      setNumbersSelected(prev => [...prev, number])
+    }
+  }
+
+  function clearNumbers(){
+    const nums = document.querySelectorAll('[data-js="numBtn"]')
+    nums.forEach(num => {
+      num.classList.remove('selected')
+    })
+    setNumbersSelected([])
   }
 
   return (
@@ -65,8 +88,8 @@ export function Main(){
         <NewBetTitle text={currentGame?.type || ''} />
         <ChooseGame onFilter={filterHandler} filter={currentGame?.type || ''} />
         <DescriptionGame text={currentGame?.description || ''} />
-        <ChooseNumbers qtdNumbers={currentGame?.range || 0} />
-        <Actions />
+        <ChooseNumbers onToggleNumber={selectNumberHandler} maxNumbers={currentGame?.max_number || 0} qtdNumbers={currentGame?.range || 0} />
+        <Actions onClear={clearNumbers} />
       </SectionGames>
       <SectionCart>
         <Cart />
