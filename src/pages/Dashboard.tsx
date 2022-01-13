@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Main } from '../components/Dashboard/Main'
 import { Header } from '../components/Header'
@@ -8,12 +9,16 @@ const DashboardStyle = styled.div`
 `
 
 export function Dashboard(){
-  return (
+  const token = localStorage.getItem('authTokenLottery')
+
+  let content = token ? (
     <Layout>
       <DashboardStyle>
         <Header />
         <Main />
       </DashboardStyle>
     </Layout>
-  )
+  ) : <Navigate to='/' />
+
+  return content
 }

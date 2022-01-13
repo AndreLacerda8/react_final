@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Header } from '../components/Header'
 import { Layout } from '../components/Layout'
@@ -8,12 +9,14 @@ const NewBetStyle = styled.div`
 `
 
 export function NewBet(){
-  return (
+  const token = localStorage.getItem('authTokenLottery')
+
+  return token ? (
     <Layout>
       <NewBetStyle>
         <Header />
         <Main />
       </NewBetStyle>
     </Layout>
-  )
+  ) : <Navigate to='/' />
 }

@@ -5,6 +5,7 @@ import { Home } from './pages/Home'
 import { NewBet } from './pages/NewBet'
 
 function App() {
+
   return (
     <UserInputsContextProvider>
       <Routes>

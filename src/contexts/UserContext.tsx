@@ -1,22 +1,28 @@
 import { createContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { httpAxios } from '../functions/axios'
 
 export const UserInputsContext = createContext({
   error: '',
+  token: '',
   changeEmail: (email: string) => {},
   changePassword: (password: string) => {},
   changeName: (name: string) => {},
   changeError: (error: string) => {},
   loginHandler: () => {},
+  logoutHandler: () => {},
   resetPasswordHandler: () => {},
-  signUpHandler: () => {}
+  signUpHandler: () => {},
 })
 
 export function UserInputsContextProvider(props: any){
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [error, setError] = useState<string>('')
+  const [token, setToken] = useState('')
 
   function changeEmail(email: string){
     setEmail(email)
@@ -40,10 +46,15 @@ export function UserInputsContextProvider(props: any){
         email,
         password
       })
-      console.log(data)
+      setTokenInLocalStorage(data.token.token)
+      navigate('/dashboard')
     } catch(err: any){
       changeError(err.response.data.message)
     }
+  }
+
+  function logoutHandler(){
+    localStorage.removeItem('authTokenLottery')
   }
 
   async function resetPasswordHandler(){
@@ -52,6 +63,7 @@ export function UserInputsContextProvider(props: any){
         email
       })
       console.log(data)
+      navigate('/')
     } catch(err: any){
       console.log(err.response)
       changeError(err.response.data.message)
@@ -65,17 +77,24 @@ export function UserInputsContextProvider(props: any){
         password,
         name
       })
-      console.log(data)
+      setTokenInLocalStorage(data.token.token)
+      navigate('/dashboard')
+
     } catch(err: any){
       changeError(err.response.data.message)
     }
   }
 
+  function setTokenInLocalStorage(token: string){
+    setToken(token)
+    localStorage.setItem('authTokenLottery', token)
+  }
+
   return (
     <UserInputsContext.Provider value={{
       changeEmail, changePassword, changeName,
-      error, changeError,
-      loginHandler, resetPasswordHandler, signUpHandler
+      error, changeError, token,
+      loginHandler, logoutHandler, resetPasswordHandler, signUpHandler
     }}>
       {props.children}
     </UserInputsContext.Provider>

@@ -1,6 +1,8 @@
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { ArrowRight } from '../assets/ArrowRight'
+import { UserInputsContext } from '../contexts/UserContext'
 
 const Ul = styled.ul`
   list-style: none;
@@ -33,7 +35,10 @@ const Item = styled.button`
 export function NavHeader(){
   const navigate = useNavigate()
 
+  const { logoutHandler } = useContext(UserInputsContext)
+
   function logout(){
+    logoutHandler()
     navigate('/')
   }
 

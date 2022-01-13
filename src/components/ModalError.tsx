@@ -32,7 +32,7 @@ export function ModalError(){
   useEffect(() => {
     const timer = setTimeout(() => {
       changeError('')
-    }, 5000);
+    }, 3000);
 
     return () => {
       clearTimeout(timer)
