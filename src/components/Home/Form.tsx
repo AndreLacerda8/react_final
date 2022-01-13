@@ -32,11 +32,16 @@ const FormStyled = styled.form`
   width: 100%;
 `
 
-export function Form(props: { children: any, btnText: string, title: string, back?: boolean, to: string }) {
+export function Form(props: { children: any, btnText: string, title: string, back?: boolean, to: string, onSubmit: () => void }) {
+  function submitHandler(event: any){
+    event.preventDefault()
+    props.onSubmit()
+  }
+
   return (
     <FormWrap>
       <Title>{props.title}</Title>
-      <FormStyled>
+      <FormStyled onSubmit={submitHandler}>
         {props.children}
       </FormStyled>
       <Button second back={props.back}>

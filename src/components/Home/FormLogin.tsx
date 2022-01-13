@@ -1,6 +1,8 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ArrowRight } from '../../assets/ArrowRight'
+import { UserInputsContext } from '../../contexts/UserContext'
 import { Button } from './Button'
 import { Form } from './Form'
 import { Input } from './Input'
@@ -20,10 +22,12 @@ const ForgotPass = styled.span`
 `
 
 export function FormLogin(){
+  const { loginHandler, changeEmail, changePassword } = useContext(UserInputsContext)
+
   return (
-    <Form to='/registration' btnText='Sign Up' title='Authentication'>
-      <Input placeholder='Email' />
-      <Input placeholder='Password' />
+    <Form onSubmit={loginHandler} to='/registration' btnText='Sign Up' title='Authentication'>
+      <Input required type='email' placeholder='Email' onChange={event => changeEmail(event.target.value)} />
+      <Input required type='password' placeholder='Password' onChange={event => changePassword(event.target.value)} />
       <ForgotPass>
         <Link to='/resetpassword' style={{
           textDecoration: 'none',

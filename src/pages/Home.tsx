@@ -5,6 +5,9 @@ import { Layout } from '../components/Layout'
 import { Title } from '../components/Home/Title'
 import { FormResetPass } from '../components/Home/FormResetPass'
 import { FormRegister } from '../components/Home/FormRegister'
+import { ModalError } from '../components/ModalError'
+import { useContext } from 'react'
+import { UserInputsContext } from '../contexts/UserContext'
 
 const HomeStyle = styled.main`
   display: flex;
@@ -14,8 +17,11 @@ const HomeStyle = styled.main`
 `
 
 export function Home(){
+  const {error} = useContext(UserInputsContext)
+
   return (
     <Layout>
+      {error && <ModalError />}
       <HomeStyle>
         <Title />
         <Routes>
