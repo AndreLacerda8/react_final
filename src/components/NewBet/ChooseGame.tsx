@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { httpAxios } from '../../functions/axios'
 import { GameButton } from '../GameButton'
 
 const Title = styled.h4`
@@ -8,14 +10,28 @@ const Title = styled.h4`
   margin-bottom: 1.25rem;
 `
 
-export function ChooseGame(){
+export function ChooseGame(props: { onFilter: (type: string) => void, filter: string }){
+  const [games, setGames] = useState([])
+
+  useEffect(() => {
+    httpAxios('/cart_games').then(resp => setGames(resp.data.types))
+  }, [])
+
   return(
     <>
       <Title>Choose a game</Title>
       <div>
-        <GameButton type='Lotofácil' color='#7F3992' />
-        <GameButton selected type='Mega-Sena' color='#01AC66' />
-        <GameButton type='Lotomania' color='#F79C31' />
+      {games.map((game: any) => {
+        return (
+          <GameButton
+            key={game.id}
+            onClick={() => props.onFilter(game.type)}
+            selected={props.filter === game.type}
+            type={game.type}
+            color={game.color}
+          />
+        )
+      })}
       </div>
     </>
   )

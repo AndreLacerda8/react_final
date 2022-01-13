@@ -54,7 +54,12 @@ export function Main(){
   const token = localStorage.getItem('authTokenLottery')
 
   const [bets, setBets] = useState([])
+  const [games, setGames] = useState([])
   const [filter, setFilter] = useState('')
+
+  useEffect(() => {
+    httpAxios('/cart_games').then(resp => setGames(resp.data.types))
+  }, [])
 
   useEffect(() => {
     if(filter){
@@ -90,9 +95,17 @@ export function Main(){
         <Title>Recent Games</Title>
         <ButtonFilter>Filters</ButtonFilter>
         <div>
-          <GameButton onClick={() => filterHandler('Lotofácil')} selected={filter === 'Lotofácil'} type='Lotofácil' color='#7F3992' />
-          <GameButton onClick={() => filterHandler('Mega-Sena')} selected={filter === 'Mega-Sena'} type='Mega-Sena' color='#01AC66' />
-          <GameButton onClick={() => filterHandler('Quina')} selected={filter === 'Quina'} type='Quina' color='#F79C31' />
+          {games.map((game: any) => {
+            return (
+              <GameButton
+                key={game.id}
+                onClick={() => filterHandler(game.type)}
+                selected={filter === game.type}
+                type={game.type}
+                color={game.color}
+              />
+            )
+          })}
         </div>
         <ButtonNewBet onClick={navigateNewBet}>
           New Bet

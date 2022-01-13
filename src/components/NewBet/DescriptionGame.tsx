@@ -13,12 +13,12 @@ const Description = styled.p`
   font-style: italic;
 `
 
-export function DescriptionGame(){
+export function DescriptionGame(props: { text: string }){
   return (
     <>
       <Title>Fill your bet</Title>
       <Description>
-        Mark as many numbers as you want up to a maximum of 50. Win by hitting 15, 16, 17, 18, 19, 20 or none of the 20 numbers drawn.
+        {props.text}
       </Description>
     </>
   )
