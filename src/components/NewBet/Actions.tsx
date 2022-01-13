@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { CartIcon } from '../../assets/Cart'
 
 const Container = styled.div`
   margin-top: 2.75rem;
@@ -36,6 +37,8 @@ const CommonButton = styled.button`
 const ButtonAddCart = styled(CommonButton)`
   background-color: var(--color-green-strong);
   color: #fff;
+  display: flex;
+  align-items: center;
 
   &:hover{
     filter: brightness(1.1);
@@ -50,7 +53,10 @@ export function Actions(){
         <CommonButton>Complete game</CommonButton>
         <CommonButton>Clear game</CommonButton>
       </LeftBox>
-      <ButtonAddCart>Add to cart</ButtonAddCart>
+      <ButtonAddCart>
+        <CartIcon />
+        Add to cart
+      </ButtonAddCart>
     </Container>
   )
 }
