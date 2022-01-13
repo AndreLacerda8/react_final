@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { ArrowRight } from '../../assets/ArrowRight'
+import { httpAxios } from '../../functions/axios'
 import { GameButton } from '../GameButton'
 import { BetCard } from './BetCard'
 
@@ -23,14 +25,11 @@ const Title = styled.h2`
   margin-right: 2.8rem;
 `
 
-const ButtonFilter = styled.button`
-  border: none;
-  background-color: transparent;
+const ButtonFilter = styled.span`
   font-size: 1rem;
   font-style: italic;
   color: #868686;
   margin-right: 1rem;
-  cursor: pointer;
 `
 
 const ButtonNewBet = styled.button`
@@ -52,9 +51,37 @@ const ButtonNewBet = styled.button`
 
 export function Main(){
   const navigate = useNavigate()
+  const token = localStorage.getItem('authTokenLottery')
+
+  const [bets, setBets] = useState([])
+  const [filter, setFilter] = useState('')
+
+  useEffect(() => {
+    if(filter){
+      httpAxios.get(`/bet/all-bets?type%5B%5D=${filter}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => setBets(resp.data))
+    } else {
+      httpAxios.get('/bet/all-bets', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => setBets(resp.data))
+    }
+  }, [filter, token])
 
   function navigateNewBet(){
     navigate('/newbet')
+  }
+
+  function filterHandler(type: string){
+    if(filter === type){
+      setFilter('')
+    } else {
+      setFilter(type)
+    }
   }
 
   return (
@@ -63,9 +90,9 @@ export function Main(){
         <Title>Recent Games</Title>
         <ButtonFilter>Filters</ButtonFilter>
         <div>
-          <GameButton type='Lotofácil' color='#7F3992' />
-          <GameButton selected type='Mega-Sena' color='#01AC66' />
-          <GameButton type='Lotomania' color='#F79C31' />
+          <GameButton onClick={() => filterHandler('Lotofácil')} selected={filter === 'Lotofácil'} type='Lotofácil' color='#7F3992' />
+          <GameButton onClick={() => filterHandler('Mega-Sena')} selected={filter === 'Mega-Sena'} type='Mega-Sena' color='#01AC66' />
+          <GameButton onClick={() => filterHandler('Quina')} selected={filter === 'Quina'} type='Quina' color='#F79C31' />
         </div>
         <ButtonNewBet onClick={navigateNewBet}>
           New Bet
@@ -73,27 +100,18 @@ export function Main(){
         </ButtonNewBet>
       </HeaderMain>
       <div>
-        <BetCard
-          numbers='01,02,04,05,06,07,09,15,17,20,21,22,23,24,25'
-          date='30/11/2020'
-          price='2,50'
-          type='Lotofácil'
-          color='#7F3992' 
-        />
-        <BetCard
-          numbers='01,02,04,05,06,07,09,15,17,20,21,22,23,24,25'
-          date='30/11/2020'
-          price='2,50'
-          type='Megasena'
-          color='#01AC66' 
-        />
-        <BetCard
-          numbers='01,02,04,05,06,07,09,15,17,20,21,22,23,24,25'
-          date='30/11/2020'
-          price='2,50'
-          type='Lotomania'
-          color='#F79C31' 
-        />
+        {bets.map((bet: any) => {
+          return (
+            <BetCard
+              key={bet.id}
+              numbers={bet.choosen_numbers}
+              date={new Date(`${bet.created_at}`).toISOString()}
+              price={bet.price.toFixed(2).replace('.', ',')}
+              type={bet.type.type}
+              color={bet.type.color}
+            />
+          )
+        })}
       </div>
     </MainStyle>
   )

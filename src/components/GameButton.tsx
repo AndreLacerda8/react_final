@@ -23,9 +23,9 @@ const ButtonStyle = styled.button`
   }
 `
 
-export function GameButton(props: { type: string, color: string, selected?: boolean }){
+export function GameButton(props: { type: string, color: string, selected?: boolean, onClick?: () => void }){
   return (
-    <ButtonStyle color={props.color} className={props.selected ? 'selected' : ''}>
+    <ButtonStyle onClick={props.onClick} color={props.color} className={props.selected ? 'selected' : ''}>
       {props.type}
     </ButtonStyle>
   )
