@@ -82,6 +82,33 @@ export function Main(){
     setNumbersSelected([])
   }
 
+  function completeGame(){
+    const randomNumbers = generateRandomNumbers((currentGame?.max_number || 0) - numbersSelected.length)
+    const nums = document.querySelectorAll('[data-js="numBtn"]')
+    nums.forEach(num => {
+      if(randomNumbers.includes(num.innerHTML))
+        num.classList.add('selected')
+    })
+    setNumbersSelected(prev => [...prev, ...randomNumbers])
+  }
+
+  function generateRandomNumbers(qtdNumbers: number){
+    if(qtdNumbers < 1){
+      return []
+    }
+    const numbers: string[] = []
+    for(let i = 0; i < qtdNumbers; i++){
+      let random: number | string = Math.floor((Math.random()) * (currentGame?.range || 0) + 1)
+      random = random < 10 ? `0${random}` : `${random}`
+      if(numbers.includes(random)){
+        i--
+      } else {
+        numbers.push(random)
+      }
+    }
+    return numbers
+  }
+
   return (
     <MainStyle>
       <SectionGames>
@@ -89,7 +116,7 @@ export function Main(){
         <ChooseGame onFilter={filterHandler} filter={currentGame?.type || ''} />
         <DescriptionGame text={currentGame?.description || ''} />
         <ChooseNumbers onToggleNumber={selectNumberHandler} maxNumbers={currentGame?.max_number || 0} qtdNumbers={currentGame?.range || 0} />
-        <Actions onClear={clearNumbers} />
+        <Actions onComplete={completeGame} onClear={clearNumbers} />
       </SectionGames>
       <SectionCart>
         <Cart />
