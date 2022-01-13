@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { httpAxios } from '../../functions/axios'
+import { Actions } from './Actions'
 import { Cart } from './Cart'
 import { ChooseGame } from './ChooseGame'
 import { ChooseNumbers } from './ChooseNumbers'
@@ -64,7 +65,8 @@ export function Main(){
         <NewBetTitle text={currentGame?.type || ''} />
         <ChooseGame onFilter={filterHandler} filter={currentGame?.type || ''} />
         <DescriptionGame text={currentGame?.description || ''} />
-        <ChooseNumbers qtdNumbers={currentGame?.max_number || 0} />
+        <ChooseNumbers qtdNumbers={currentGame?.range || 0} />
+        <Actions />
       </SectionGames>
       <SectionCart>
         <Cart />
