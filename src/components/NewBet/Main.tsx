@@ -34,27 +34,37 @@ interface IGame{
 }
 
 export function Main(){
-  const [filter, setFilter] = useState('Mega-Sena')
   const [games, setGames] = useState<IGame[]>([])
-  const [currentGame, setCurrentGame] = useState<IGame | null>(null)
+  const [currentGame, setCurrentGame] = useState<IGame>()
 
   useEffect(() => {
-    httpAxios('/cart_games').then(resp => setGames(resp.data.types)).then(() => setCurrentGame(games[1]))
+    async function getGames(){
+      try{
+        const { data } = await httpAxios('/cart_games')
+        setGames(data.types)
+        setCurrentGame(data.types[0])
+      } catch(err){
+        alert('Error')
+      }
+    }
+    getGames()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function filterHandler(type: string){
-    setFilter(type)
     const gameSelected = games.find(game => game.type === type)
-    setCurrentGame(gameSelected || null)
+    if(gameSelected){
+      setCurrentGame(gameSelected)
+    }
   }
 
   return (
     <MainStyle>
       <SectionGames>
-        <NewBetTitle text='Mega-Sena' />
-        <ChooseGame onFilter={filterHandler} filter={filter} />
-        <DescriptionGame text={currentGame ? currentGame.description : ''} />
-        <ChooseNumbers qtdNumbers={currentGame ? currentGame.max_number : 0} />
+        <NewBetTitle text={currentGame?.type || ''} />
+        <ChooseGame onFilter={filterHandler} filter={currentGame?.type || ''} />
+        <DescriptionGame text={currentGame?.description || ''} />
+        <ChooseNumbers qtdNumbers={currentGame?.max_number || 0} />
       </SectionGames>
       <SectionCart>
         <Cart />

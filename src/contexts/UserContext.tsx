@@ -81,7 +81,7 @@ export function UserInputsContextProvider(props: any){
       navigate('/dashboard')
 
     } catch(err: any){
-      changeError(err.response.data.message)
+      changeError(err.response.data.message || err.response.data.errors[0].message)
     }
   }
 

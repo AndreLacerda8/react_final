@@ -30,7 +30,7 @@ export function ChooseNumbers(props: { qtdNumbers: number }){
     <Container>
       {array.map((item, index) => {
         const num: string = index + 1 <= 9 ? '0' + (index + 1) : '' + (index + 1)
-        return <Number>{num}</Number>
+        return <Number key={index}>{num}</Number>
       })}
     </Container>
   )

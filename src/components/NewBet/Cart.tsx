@@ -8,6 +8,7 @@ const CartStyle = styled.div`
   border: 1px solid #E2E2E2;
   border-radius: 10px;
   padding-left: 1.25rem;
+  margin-bottom: 5rem;
   position: relative;
 `
 
