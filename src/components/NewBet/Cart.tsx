@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { ArrowRight } from '../../assets/ArrowRight'
@@ -60,14 +61,16 @@ const SaveButton = styled.button`
   }
 `
 
-export function Cart(props: { addedBets: any[], deleteBet: (id: string) => void, totalPrice: number }){
+export function Cart(props: { deleteBet: (id: string) => void }){
   const token = localStorage.getItem('authTokenLottery')
   const navigate = useNavigate()
+
+  const { betsOnCart, totalPrice } = useSelector((state: { cart: any }) => state.cart)
 
   const { changeError, error } = useContext(UserInputsContext)
 
   async function saveBetsHandler(){
-    const formatedBets = props.addedBets.map(bet => ({
+    const formatedBets = betsOnCart.map((bet: any) => ({
       game_id: bet.game_id,
       numbers: bet.numbers.split(',').map((num: string) => Number(num))
     }))
@@ -88,10 +91,10 @@ export function Cart(props: { addedBets: any[], deleteBet: (id: string) => void,
     <CartStyle>
       {error && <ModalError />}
       <Title>Cart</Title>
-      <ItemsList deleteBet={props.deleteBet} addedBets={props.addedBets} />
+      <ItemsList deleteBet={props.deleteBet} />
       <Price>
         <strong>Cart </strong>
-        Total: R$ {props.totalPrice.toFixed(2).replace('.', ',')}
+        Total: R$ {totalPrice.toFixed(2).replace('.', ',')}
       </Price>
       <SaveButton onClick={saveBetsHandler}>
         Save

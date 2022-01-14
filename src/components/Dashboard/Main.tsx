@@ -89,8 +89,6 @@ export function Main(){
     }
   }
 
-  console.log(bets)
-
   return (
     <MainStyle>
       <HeaderMain>

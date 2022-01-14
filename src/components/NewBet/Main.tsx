@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { httpAxios } from '../../functions/axios'
+import { cartActions } from '../../store/cart'
 import { Actions } from './Actions'
 import { Cart } from './Cart'
 import { ChooseGame } from './ChooseGame'
@@ -38,9 +40,10 @@ export function Main(){
   const [games, setGames] = useState<IGame[]>([])
   const [currentGame, setCurrentGame] = useState<IGame>()
   const [numbersSelected, setNumbersSelected] = useState<string[]>([])
-  const [betsOnCart, setBetsOnCart] = useState<any[]>([])
-  const [totalPrice, setTotalPrice] = useState(0)
 
+  const { betsOnCart } = useSelector((state: { cart: any }) => state.cart)
+  const dispatch = useDispatch()
+  
   useEffect(() => {
     async function getGames(){
       try{
@@ -112,30 +115,20 @@ export function Main(){
   }
 
   function addBetOnCart(){
-    setBetsOnCart((prev: any[]) => {
-      return [
-        {
-          id: Math.random().toString(),
-          game_id: currentGame?.id,
-          numbers: numbersSelected.sort().join(','),
-          price: currentGame?.price.toFixed(2).replace('.', ','),
-          type: currentGame?.type,
-          color: currentGame?.color
-        },
-        ...prev
-      ]
-    })
+    dispatch(cartActions.addBet({bet: {
+      id: Math.random().toString(),
+      game_id: currentGame?.id,
+      numbers: numbersSelected.sort().join(','),
+      price: currentGame?.price.toFixed(2).replace('.', ','),
+      type: currentGame?.type,
+      color: currentGame?.color
+    }}))
     clearNumbers()
-    setTotalPrice(prev => prev + (currentGame?.price || 0))
   }
 
   function deleteBetOnCart(id: string){
-    const type = betsOnCart.find(bet => bet.id === id).type
-    const price = games.find(game => game.type === type)?.price
-    setBetsOnCart(prev => {
-      return prev.filter(bet => bet.id !== id)
-    })
-    setTotalPrice(prev => prev - (price || 0))
+    const bet = betsOnCart.find((curBet: any) => curBet.id === id)
+    dispatch(cartActions.removeBet({ bet }))
   }
 
   return (
@@ -148,7 +141,7 @@ export function Main(){
         <Actions onAddToCart={addBetOnCart} onComplete={completeGame} onClear={clearNumbers} />
       </SectionGames>
       <SectionCart>
-        <Cart totalPrice={totalPrice} deleteBet={deleteBetOnCart} addedBets={betsOnCart} />
+        <Cart deleteBet={deleteBetOnCart} />
       </SectionCart>
     </MainStyle>
   )
