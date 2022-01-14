@@ -39,6 +39,7 @@ export function Main(){
   const [currentGame, setCurrentGame] = useState<IGame>()
   const [numbersSelected, setNumbersSelected] = useState<string[]>([])
   const [betsOnCart, setBetsOnCart] = useState<any[]>([])
+  const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
     async function getGames(){
@@ -116,7 +117,7 @@ export function Main(){
         {
           id: Math.random().toString(),
           numbers: numbersSelected.sort().join(','),
-          price: currentGame?.price,
+          price: currentGame?.price.toFixed(2).replace('.', ','),
           type: currentGame?.type,
           color: currentGame?.color
         },
@@ -124,12 +125,16 @@ export function Main(){
       ]
     })
     clearNumbers()
+    setTotalPrice(prev => prev + (currentGame?.price || 0))
   }
 
   function deleteBetOnCart(id: string){
+    const type = betsOnCart.find(bet => bet.id === id).type
+    const price = games.find(game => game.type === type)?.price
     setBetsOnCart(prev => {
       return prev.filter(bet => bet.id !== id)
     })
+    setTotalPrice(prev => prev - (price || 0))
   }
 
   return (
@@ -142,7 +147,7 @@ export function Main(){
         <Actions onAddToCart={addBetOnCart} onComplete={completeGame} onClear={clearNumbers} />
       </SectionGames>
       <SectionCart>
-        <Cart deleteBet={deleteBetOnCart} addedBets={betsOnCart} />
+        <Cart totalPrice={totalPrice} deleteBet={deleteBetOnCart} addedBets={betsOnCart} />
       </SectionCart>
     </MainStyle>
   )

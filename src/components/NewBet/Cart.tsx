@@ -55,14 +55,14 @@ const SaveButton = styled.button`
   }
 `
 
-export function Cart(props: { addedBets: any[], deleteBet: (id: string) => void }){
+export function Cart(props: { addedBets: any[], deleteBet: (id: string) => void, totalPrice: number }){
   return(
     <CartStyle>
       <Title>Cart</Title>
       <ItemsList deleteBet={props.deleteBet} addedBets={props.addedBets} />
       <Price>
         <strong>Cart </strong>
-        Total: R$ 7,00
+        Total: R$ {props.totalPrice.toFixed(2).replace('.', ',')}
       </Price>
       <SaveButton>
         Save
