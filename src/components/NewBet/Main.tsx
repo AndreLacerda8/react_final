@@ -116,6 +116,7 @@ export function Main(){
       return [
         {
           id: Math.random().toString(),
+          game_id: currentGame?.id,
           numbers: numbersSelected.sort().join(','),
           price: currentGame?.price.toFixed(2).replace('.', ','),
           type: currentGame?.type,

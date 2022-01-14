@@ -1,5 +1,10 @@
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { ArrowRight } from '../../assets/ArrowRight'
+import { UserInputsContext } from '../../contexts/UserContext'
+import { httpAxios } from '../../functions/axios'
+import { ModalError } from '../ModalError'
 import { ItemsList } from './ItemsList'
 
 const CartStyle = styled.div`
@@ -56,15 +61,39 @@ const SaveButton = styled.button`
 `
 
 export function Cart(props: { addedBets: any[], deleteBet: (id: string) => void, totalPrice: number }){
+  const token = localStorage.getItem('authTokenLottery')
+  const navigate = useNavigate()
+
+  const { changeError, error } = useContext(UserInputsContext)
+
+  async function saveBetsHandler(){
+    const formatedBets = props.addedBets.map(bet => ({
+      game_id: bet.game_id,
+      numbers: bet.numbers.split(',').map((num: string) => Number(num))
+    }))
+    console.log(formatedBets)
+    try{
+      await httpAxios.post('/bet/new-bet', { games: formatedBets }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      navigate('/dashboard')
+    } catch(err: any){
+      changeError(err.response.data.message)
+    }
+  }
+
   return(
     <CartStyle>
+      {error && <ModalError />}
       <Title>Cart</Title>
       <ItemsList deleteBet={props.deleteBet} addedBets={props.addedBets} />
       <Price>
         <strong>Cart </strong>
         Total: R$ {props.totalPrice.toFixed(2).replace('.', ',')}
       </Price>
-      <SaveButton>
+      <SaveButton onClick={saveBetsHandler}>
         Save
         <ArrowRight color='var(--color-green-strong)' />
       </SaveButton>

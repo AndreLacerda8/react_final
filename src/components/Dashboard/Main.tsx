@@ -89,6 +89,8 @@ export function Main(){
     }
   }
 
+  console.log(bets)
+
   return (
     <MainStyle>
       <HeaderMain>
@@ -117,7 +119,7 @@ export function Main(){
           return (
             <BetCard
               key={bet.id}
-              numbers={bet.choosen_numbers}
+              numbers={bet.choosen_numbers.split(',').map((num: string) => +num < 10 ? `0${num}` : num).join(',')}
               date={new Date(bet.created_at).toLocaleDateString()}
               price={bet.price.toFixed(2).replace('.', ',')}
               type={bet.type.type}
