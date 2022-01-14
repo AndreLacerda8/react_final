@@ -7,11 +7,11 @@ overflow-y: auto;
 margin-bottom: 2rem;
 `
 
-export function ItemsList(props: { addedBets: any[] }){
+export function ItemsList(props: { addedBets: any[], deleteBet: (id: string) => void }){
   return (
     <ItemsListStyle>
       {props.addedBets.map(bet => (
-        <CartItem key={bet.id} id={bet.id} numbers={bet.numbers} type={bet.type} price={bet.price} color={bet.color} />
+        <CartItem onDeleteItem={() => props.deleteBet(bet.id)} key={bet.id} id={bet.id} numbers={bet.numbers} type={bet.type} price={bet.price} color={bet.color} />
       ))}
     </ItemsListStyle>
   )

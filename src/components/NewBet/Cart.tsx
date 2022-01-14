@@ -55,11 +55,11 @@ const SaveButton = styled.button`
   }
 `
 
-export function Cart(props: { addedBets: any[] }){
+export function Cart(props: { addedBets: any[], deleteBet: (id: string) => void }){
   return(
     <CartStyle>
       <Title>Cart</Title>
-      <ItemsList addedBets={props.addedBets} />
+      <ItemsList deleteBet={props.deleteBet} addedBets={props.addedBets} />
       <Price>
         <strong>Cart </strong>
         Total: R$ 7,00

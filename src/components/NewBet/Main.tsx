@@ -126,6 +126,12 @@ export function Main(){
     clearNumbers()
   }
 
+  function deleteBetOnCart(id: string){
+    setBetsOnCart(prev => {
+      return prev.filter(bet => bet.id !== id)
+    })
+  }
+
   return (
     <MainStyle>
       <SectionGames>
@@ -136,7 +142,7 @@ export function Main(){
         <Actions onAddToCart={addBetOnCart} onComplete={completeGame} onClear={clearNumbers} />
       </SectionGames>
       <SectionCart>
-        <Cart addedBets={betsOnCart} />
+        <Cart deleteBet={deleteBetOnCart} addedBets={betsOnCart} />
       </SectionCart>
     </MainStyle>
   )
