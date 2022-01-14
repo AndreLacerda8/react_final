@@ -55,11 +55,11 @@ const SaveButton = styled.button`
   }
 `
 
-export function Cart(){
+export function Cart(props: { addedBets: any[] }){
   return(
     <CartStyle>
       <Title>Cart</Title>
-      <ItemsList />
+      <ItemsList addedBets={props.addedBets} />
       <Price>
         <strong>Cart </strong>
         Total: R$ 7,00

@@ -38,6 +38,7 @@ export function Main(){
   const [games, setGames] = useState<IGame[]>([])
   const [currentGame, setCurrentGame] = useState<IGame>()
   const [numbersSelected, setNumbersSelected] = useState<string[]>([])
+  const [betsOnCart, setBetsOnCart] = useState<any[]>([])
 
   useEffect(() => {
     async function getGames(){
@@ -109,6 +110,22 @@ export function Main(){
     return numbers
   }
 
+  function addBetOnCart(){
+    setBetsOnCart((prev: any[]) => {
+      return [
+        {
+          id: Math.random().toString(),
+          numbers: numbersSelected.sort().join(','),
+          price: currentGame?.price,
+          type: currentGame?.type,
+          color: currentGame?.color
+        },
+        ...prev
+      ]
+    })
+    clearNumbers()
+  }
+
   return (
     <MainStyle>
       <SectionGames>
@@ -116,10 +133,10 @@ export function Main(){
         <ChooseGame onFilter={filterHandler} filter={currentGame?.type || ''} />
         <DescriptionGame text={currentGame?.description || ''} />
         <ChooseNumbers onToggleNumber={selectNumberHandler} maxNumbers={currentGame?.max_number || 0} qtdNumbers={currentGame?.range || 0} />
-        <Actions onComplete={completeGame} onClear={clearNumbers} />
+        <Actions onAddToCart={addBetOnCart} onComplete={completeGame} onClear={clearNumbers} />
       </SectionGames>
       <SectionCart>
-        <Cart />
+        <Cart addedBets={betsOnCart} />
       </SectionCart>
     </MainStyle>
   )

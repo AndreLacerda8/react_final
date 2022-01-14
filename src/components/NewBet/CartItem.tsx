@@ -46,7 +46,7 @@ const Card = styled.div`
   }
 `
 
-export function CartItem(props: { numbers: string, type: string, price: string, color: string }){
+export function CartItem(props: { numbers: string, type: string, price: string, color: string, id: string }){
   return (
     <CartItemStyle>
       <DeleteIcon />

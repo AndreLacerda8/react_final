@@ -7,11 +7,12 @@ overflow-y: auto;
 margin-bottom: 2rem;
 `
 
-export function ItemsList(){
+export function ItemsList(props: { addedBets: any[] }){
   return (
     <ItemsListStyle>
-      <CartItem numbers='01,03,04,05,06' type='Mega-Sena' price='4,50' color='#01AC66' />
-      <CartItem numbers='01,02,04,05,06,07,09,15,17,20,21, 22,23,24,25' type='Lotofácil' price='2,50' color='#7F3992' />
+      {props.addedBets.map(bet => (
+        <CartItem key={bet.id} id={bet.id} numbers={bet.numbers} type={bet.type} price={bet.price} color={bet.color} />
+      ))}
     </ItemsListStyle>
   )
 }
