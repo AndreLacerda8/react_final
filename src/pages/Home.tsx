@@ -8,6 +8,7 @@ import { FormRegister } from '../components/Home/FormRegister'
 import { ModalError } from '../components/ModalError'
 import { useContext } from 'react'
 import { UserInputsContext } from '../contexts/UserContext'
+import { FormUploadPass } from '../components/Home/FormUploadPass'
 
 const HomeStyle = styled.main`
   display: flex;
@@ -27,6 +28,7 @@ export function Home(){
         <Routes>
           <Route path='/login' element={<FormLogin />} />
           <Route path='/resetpassword' element={<FormResetPass />} />
+          <Route path='/uploadpassword' element={<FormUploadPass />} />
           <Route path='/registration' element={<FormRegister />} />
         </Routes>
       </HomeStyle>

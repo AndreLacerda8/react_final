@@ -12,6 +12,7 @@ export const UserInputsContext = createContext({
   loginHandler: () => {},
   logoutHandler: () => {},
   resetPasswordHandler: () => {},
+  uploadPassword: () => {},
   signUpHandler: () => {},
 })
 
@@ -62,7 +63,18 @@ export function UserInputsContextProvider(props: any){
       const { data } = await httpAxios.post('/reset', {
         email
       })
-      console.log(data)
+      setTokenInLocalStorage(data.token)
+      navigate('/uploadpassword')
+    } catch(err: any){
+      changeError(err.response.data.message)
+    }
+  }
+
+  async function uploadPassword(){
+    try{
+      await httpAxios.post(`/reset/${token}`, {
+        password
+      })
       navigate('/')
     } catch(err: any){
       changeError(err.response.data.message)
@@ -80,7 +92,7 @@ export function UserInputsContextProvider(props: any){
       navigate('/dashboard')
 
     } catch(err: any){
-      changeError(err.response.data.message || err.response.data.errors[0].message)
+      changeError(err.response.data.error.message || err.response.data.errors[0].message)
     }
   }
 
@@ -93,7 +105,7 @@ export function UserInputsContextProvider(props: any){
     <UserInputsContext.Provider value={{
       changeEmail, changePassword, changeName,
       error, changeError, token,
-      loginHandler, logoutHandler, resetPasswordHandler, signUpHandler
+      loginHandler, logoutHandler, resetPasswordHandler, uploadPassword, signUpHandler
     }}>
       {props.children}
     </UserInputsContext.Provider>

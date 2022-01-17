@@ -39,9 +39,8 @@ interface IGame{
 export function Main(){
   const [games, setGames] = useState<IGame[]>([])
   const [currentGame, setCurrentGame] = useState<IGame>()
-  const [numbersSelected, setNumbersSelected] = useState<string[]>([])
 
-  const { betsOnCart } = useSelector((state: { cart: any }) => state.cart)
+  const { betsOnCart, numbersSelected } = useSelector((state: { cart: any }) => state.cart)
   const dispatch = useDispatch()
   
   useEffect(() => {
@@ -69,13 +68,13 @@ export function Main(){
   function selectNumberHandler(event: any, number: string){
     if(event.target.classList.contains('selected')){
       event.target.classList.remove('selected')
-      setNumbersSelected(prev => prev.filter(num => num !== number))
+      dispatch(cartActions.setNumbersSelected({ numbers: numbersSelected.filter((num: any) => num !== number) }))
     } else {
       if(numbersSelected.length >= (currentGame?.max_number || 0)){
         return alert('Máximos de números atingido')
       }
       event.target.classList.add('selected')
-      setNumbersSelected(prev => [...prev, number])
+      dispatch(cartActions.setNumbersSelected({ numbers: [...numbersSelected, number] }))
     }
   }
 
@@ -84,7 +83,7 @@ export function Main(){
     nums.forEach(num => {
       num.classList.remove('selected')
     })
-    setNumbersSelected([])
+    dispatch(cartActions.setNumbersSelected({ numbers: [] }))
   }
 
   function completeGame(){
@@ -99,9 +98,7 @@ export function Main(){
       if(randomNumbers.includes(num.innerHTML))
         num.classList.add('selected')
     })
-    console.log(numbersSelected)
-    console.log(randomNumbers)
-    setNumbersSelected(prev => [...prev, ...randomNumbers])
+    dispatch(cartActions.setNumbersSelected({ numbers: [...numbersSelected, ...randomNumbers] }))
   }
 
   function generateRandomNumbers(qtdNumbers: number, max: number){
@@ -115,7 +112,6 @@ export function Main(){
     for(let i = 0; i < qtdNumbers; i++){
       let random: number | string = Math.floor((Math.random()) * (currentGame?.range || 0) + 1)
       random = random < 10 ? `0${random}` : `${random}`
-      console.log(qtdNumbers)
       if(numbers.includes(random) || (numbersSelected.includes(random) && qtdNumbers !== max)){
         i--
       } else {
@@ -129,7 +125,6 @@ export function Main(){
     dispatch(cartActions.addBet({bet: {
       id: Math.random().toString(),
       game_id: currentGame?.id,
-      numbers: numbersSelected.sort().join(','),
       price: currentGame?.price.toFixed(2).replace('.', ','),
       type: currentGame?.type,
       color: currentGame?.color

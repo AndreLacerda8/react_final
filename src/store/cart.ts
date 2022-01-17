@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface IState {
-  selectedNumbers: number[]
+  numbersSelected: number[]
   totalPrice: number
   betsOnCart: any[]
 }
@@ -9,21 +9,26 @@ interface IState {
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    selectedNumbers: [],
+    numbersSelected: [],
     totalPrice: 0,
     betsOnCart: []
   } as IState,
   reducers: {
     addNumber(state, action){
       const number = action.payload.number
-      state.selectedNumbers.push(number)
+      state.numbersSelected.push(number)
     },
     removeNumber(state, action){
       const number = action.payload.number
-      state.selectedNumbers = state.selectedNumbers.filter(num => num !== number)
+      state.numbersSelected = state.numbersSelected.filter(num => num !== number)
+    },
+    setNumbersSelected(state, action){
+      state.numbersSelected = action.payload.numbers
     },
     addBet(state, action){
       const bet = action.payload.bet
+      const numbers = state.numbersSelected.sort().join(',')
+      bet.numbers = numbers
       state.totalPrice += Number(bet.price.replace(',', '.'))
       state.betsOnCart.unshift(bet)
     },
