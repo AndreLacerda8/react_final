@@ -88,24 +88,35 @@ export function Main(){
   }
 
   function completeGame(){
-    const randomNumbers = generateRandomNumbers((currentGame?.max_number || 0) - numbersSelected.length)
+    const qtdNumbersSelected = numbersSelected.length
+    const maxNumbers = currentGame?.max_number as number
+    if(qtdNumbersSelected === maxNumbers){
+      clearNumbers()
+    }
+    const randomNumbers = generateRandomNumbers(maxNumbers - qtdNumbersSelected, maxNumbers)
     const nums = document.querySelectorAll('[data-js="numBtn"]')
     nums.forEach(num => {
       if(randomNumbers.includes(num.innerHTML))
         num.classList.add('selected')
     })
+    console.log(numbersSelected)
+    console.log(randomNumbers)
     setNumbersSelected(prev => [...prev, ...randomNumbers])
   }
 
-  function generateRandomNumbers(qtdNumbers: number){
-    if(qtdNumbers < 1){
+  function generateRandomNumbers(qtdNumbers: number, max: number){
+    if(qtdNumbers < 0){
       return []
+    }
+    if(qtdNumbers === 0){
+      qtdNumbers = max
     }
     const numbers: string[] = []
     for(let i = 0; i < qtdNumbers; i++){
       let random: number | string = Math.floor((Math.random()) * (currentGame?.range || 0) + 1)
       random = random < 10 ? `0${random}` : `${random}`
-      if(numbers.includes(random)){
+      console.log(qtdNumbers)
+      if(numbers.includes(random) || (numbersSelected.includes(random) && qtdNumbers !== max)){
         i--
       } else {
         numbers.push(random)

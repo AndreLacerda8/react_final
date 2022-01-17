@@ -65,7 +65,6 @@ export function UserInputsContextProvider(props: any){
       console.log(data)
       navigate('/')
     } catch(err: any){
-      console.log(err.response)
       changeError(err.response.data.message)
     }
   }

@@ -16,7 +16,7 @@ const cartSlice = createSlice({
   reducers: {
     addNumber(state, action){
       const number = action.payload.number
-      state.selectedNumbers.unshift(number)
+      state.selectedNumbers.push(number)
     },
     removeNumber(state, action){
       const number = action.payload.number
