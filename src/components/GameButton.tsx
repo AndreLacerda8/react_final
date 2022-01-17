@@ -21,6 +21,11 @@ const ButtonStyle = styled.button`
     color: #fff;
     background-color: ${prop => prop.color};
   }
+
+  @media(max-width: 720px){
+    padding: .5rem 1rem;
+    margin-right: 1rem;
+  }
 `
 
 export function GameButton(props: { type: string, color: string, selected?: boolean, onClick?: () => void }){

@@ -15,6 +15,10 @@ const HomeStyle = styled.main`
   align-items: center;
   justify-content: space-around;
   min-height: calc(100% - 7rem);
+
+  @media(max-width: 720px){
+    flex-direction: column;
+  }
 `
 
 export function Home(){

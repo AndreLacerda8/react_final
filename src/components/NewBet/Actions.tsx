@@ -6,6 +6,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media(max-width: 720px){
+    flex-direction: column;
+    justify-content: center;
+  }
 `
 
 const LeftBox = styled.div`
@@ -13,6 +18,12 @@ const LeftBox = styled.div`
   align-items: center;
   justify-content: left;
   width: 50%;
+
+  @media(max-width: 720px){
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 1.5rem;
+  }
 `
 
 const CommonButton = styled.button`

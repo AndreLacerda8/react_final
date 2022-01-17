@@ -10,19 +10,29 @@ const MainStyle = styled.main`
   width: 100%;
   padding: 0 12.5rem 0 8.125rem;
   margin-top: 4.4rem;
+
+  @media(max-width: 720px){
+    padding: 0;
+  }
 `
 
 const HeaderMain = styled.header`
   width: 100%;
   display: flex;
   align-items: center;
+
+  @media(max-width: 720px){
+    position: relative;
+    margin-bottom: 10rem;
+  }
 `
 
 const Title = styled.h2`
   font-size: 1.5rem;
   font-style: italic;
   color: var(--color-gray-strong);
-  margin-right: 2.8rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
 `
 
 const ButtonFilter = styled.span`
@@ -30,6 +40,19 @@ const ButtonFilter = styled.span`
   font-style: italic;
   color: #868686;
   margin-right: 1rem;
+  @media(max-width: 720px){
+    position: absolute;
+    bottom: -5.2rem;
+    left: 2rem;
+  }
+`
+
+const Filters = styled.div`
+  @media(max-width: 720px){
+    position: absolute;
+    bottom: -6rem;
+    left: 6rem;
+  }
 `
 
 const ButtonNewBet = styled.button`
@@ -94,7 +117,7 @@ export function Main(){
       <HeaderMain>
         <Title>Recent Games</Title>
         <ButtonFilter>Filters</ButtonFilter>
-        <div>
+        <Filters>
           {games.map((game: any) => {
             return (
               <GameButton
@@ -106,7 +129,7 @@ export function Main(){
               />
             )
           })}
-        </div>
+        </Filters>
         <ButtonNewBet onClick={navigateNewBet}>
           New Bet
           <ArrowRight color='#B5C401' />

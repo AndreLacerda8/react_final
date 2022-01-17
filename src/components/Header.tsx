@@ -9,6 +9,11 @@ const HeaderStyle = styled.header`
   justify-content: space-between;
   padding: 0 12.5rem 0 8.125rem;
   border-bottom: 2px solid var(--color-gray-border);
+
+  @media(max-width: 720px){
+    justify-content: center;
+    padding: 0;
+  }
 `
 
 export function Header(props: { haveLinkHome?: boolean }){

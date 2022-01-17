@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
+  margin-left: 1rem;
   margin-top: 2rem;
   position: relative;
 `
@@ -19,6 +20,7 @@ const Card = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin-left: 1.2rem;
+  max-width: 90%;
 `
 
 const SpanNumbers = styled.span`
@@ -26,6 +28,7 @@ const SpanNumbers = styled.span`
   font-size: 1.25rem;
   font-weight: bold;
   font-style: italic;
+  word-break: break-all;
 `
 
 const SpanInfos = styled.span`

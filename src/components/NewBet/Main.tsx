@@ -13,17 +13,34 @@ import { NewBetTitle } from './NewBetTitle'
 const MainStyle = styled.main`
   padding: 0 12.5rem 0 8.125rem;
   display: flex;
+
+  @media(max-width: 720px){
+    padding: 0;
+    flex-direction: column;
+  }
 `
 
 const SectionGames = styled.section`
   margin-top: 4.6rem;
   width: 68%;
+
+  @media(max-width: 720px){
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+  }
 `
 
 const SectionCart = styled.section`
   margin-top: 2.6rem;
   margin-left: 2.5rem;
   width: 35%;
+
+  @media(max-width: 720px){
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+  }
 `
 
 interface IGame{
@@ -122,6 +139,10 @@ export function Main(){
   }
 
   function addBetOnCart(){
+    const qtdNumbersMissing = (currentGame?.max_number || 0) - numbersSelected.length
+    if(numbersSelected.length < (currentGame?.max_number || 0)){
+      return alert('Escolha mais ' + qtdNumbersMissing + (qtdNumbersMissing === 1 ? ' número' : ' números'))
+    }
     dispatch(cartActions.addBet({bet: {
       id: Math.random().toString(),
       game_id: currentGame?.id,

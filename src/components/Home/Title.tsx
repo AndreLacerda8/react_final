@@ -7,6 +7,10 @@ const TitleWrap = styled.h1`
   justify-content: center;
   color: var(--color-gray-strong);
   font-style: italic;
+
+  @media(max-width: 720px){
+    margin-top: 3rem;
+  }
 `
 
 const PrimaryTitle = styled.span`
@@ -30,6 +34,10 @@ const SecondTitle = styled.span`
 
 const ThirdTitle = styled.span`
   font-size: 5.12rem;
+
+  @media(max-width:720px){
+    font-size: 4.5rem;
+  }
 `
 
 export function Title(){

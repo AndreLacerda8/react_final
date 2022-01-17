@@ -5,6 +5,10 @@ const Container = styled.div`
   grid-template-columns: repeat(9, 1fr);
   gap: .75rem;
   margin-top: 1.75rem;
+
+  @media(max-width: 720px){
+    grid-template-columns: repeat(5, 1fr);
+  }
 `
 
 const Number = styled.button`
